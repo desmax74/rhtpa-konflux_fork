@@ -5,25 +5,32 @@ metadata:
   name: e2e-ui-integration-tests
 spec:
   workspaces:
-    - name: workspace
+    - name: my_workspace
   tasks:
     - name: checkout-ui-tests-repo
       workspaces:
-        - name: trustify-ui-tests
-          workspace: workspace
+        - name: my_workspace_name1
+          workspace: my_workspace
       taskRef:
         name: git-clone
       params:
         - name: url
           value: https://github.com/trustification/trustify-ui-tests
+
     - name: printrepo
       runAfter:
         - checkout-ui-tests-repo
       workspaces:
-        - name: my_repository
-          workspace: workspace
-      image: alpine:latest
-      script: |
-        #!/usr/bin/env sh
-        pwd
-        ls -l
+        - name: my_workspace_name2
+          workspace: my_workspace
+      taskSpec:
+        workspaces:
+          - name: my_workspace_name2
+        steps:
+          - name: echo_aqui
+            image: alpine:latest
+            script: |
+              #!/usr/bin/env sh
+              pwd
+              ls -l
+              ls "$(workspaces.my_workspace_name2.path)"
