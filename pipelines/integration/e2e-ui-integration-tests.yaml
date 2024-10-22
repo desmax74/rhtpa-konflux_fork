@@ -5,12 +5,12 @@ metadata:
   name: e2e-ui-integration-tests
 spec:
   workspaces:
-    - name: my_workspace
+    - name: myworkspace
   tasks:
     - name: checkout-ui-tests-repo
       workspaces:
-        - name: my_workspace_name1
-          workspace: my_workspace
+        - name: myworkspacename1
+          workspace: myworkspace
       taskRef:
         name: git-clone
       params:
@@ -21,16 +21,16 @@ spec:
       runAfter:
         - checkout-ui-tests-repo
       workspaces:
-        - name: my_workspace_name2
-          workspace: my_workspace
+        - name: myworkspacename2
+          workspace: myworkspace
       taskSpec:
         workspaces:
-          - name: my_workspace_name2
+          - name: myworkspacename2
         steps:
-          - name: echo_aqui
+          - name: aqui
             image: alpine:latest
             script: |
               #!/usr/bin/env sh
               pwd
               ls -l
-              ls "$(workspaces.my_workspace_name2.path)"
+              ls "$(workspaces.myworkspacename2.path)"
