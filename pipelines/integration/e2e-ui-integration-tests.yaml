@@ -9,7 +9,7 @@ spec:
   tasks:
     - name: checkout-ui-tests-repo
       workspaces:
-        - name: myworkspacename1
+        - name: myworkspace
           workspace: myworkspace
       taskRef:
         name: git-clone
@@ -21,11 +21,11 @@ spec:
       runAfter:
         - checkout-ui-tests-repo
       workspaces:
-        - name: myworkspacename2
+        - name: myworkspace
           workspace: myworkspace
       taskSpec:
         workspaces:
-          - name: myworkspacename2
+          - name: myworkspace
         steps:
           - name: aqui
             image: alpine:latest
@@ -33,4 +33,4 @@ spec:
               #!/usr/bin/env sh
               pwd
               ls -l
-              ls "$(workspaces.myworkspacename2.path)"
+              ls "$(workspaces.myworkspace.path)"
