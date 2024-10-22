@@ -1,0 +1,29 @@
+---
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: e2e-ui-integration-tests
+spec:
+  workspaces:
+    - name: workspace
+  tasks:
+    - name: checkout-ui-tests-repo
+      workspaces:
+        - name: trustify-ui-tests
+          workspace: workspace
+      taskRef:
+        name: git-clone
+      params:
+        - name: url
+          value: https://github.com/trustification/trustify-ui-tests
+    - name: printrepo
+      runAfter:
+        - checkout-ui-tests-repo
+      workspaces:
+        - name: my_repository
+          workspace: workspace
+      image: alpine:latest
+      script: |
+        #!/usr/bin/env sh
+        pwd
+        ls -l
