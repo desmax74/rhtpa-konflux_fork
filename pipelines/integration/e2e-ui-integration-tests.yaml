@@ -34,3 +34,20 @@ spec:
               pwd
               ls -l
               ls "$(workspaces.myworkspace.path)"
+---
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: e2e-ui-integration-tests-run
+spec:
+  pipelineRef:
+    name: e2e-ui-integration-tests
+  workspaces:
+    - name: myworkspace
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 10Gi
