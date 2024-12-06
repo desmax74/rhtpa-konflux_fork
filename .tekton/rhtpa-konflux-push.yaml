@@ -24,7 +24,7 @@ spec:
   - name: output-image
     value: quay.io/redhat-user-workloads/trusted-content-tenant/rhtpa-konflux:{{revision}}
   - name: dockerfile
-    value: https://github.com/desmax74/rhtpa-konflux/blob/main/Dockerfile.server
+    value: Dockerfile.server
   pipelineSpec:
     description: |
       This pipeline is ideal for building container images from a Containerfile while maintaining trust after pipeline customization.
