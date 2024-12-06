@@ -1,4 +1,3 @@
-#Test
 # RHTPA Konflux
 
 ## Directory structure
