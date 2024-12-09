@@ -1,0 +1,17 @@
+FROM registry.access.redhat.com/ubi9/ubi:latest AS server-source
+
+COPY components/trustify-helm-charts /trustify-helm-charts/
+
+RUN dnf install wget tar --allowerasing -y && \
+    wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq && \
+    chmod +x /usr/bin/yq && \
+    # values.yaml \
+    yq e -P -i '.image.name="rhtpa-konflux"' /trustify-helm-charts/charts/trustify/values.yaml && \
+    yq e -P -i '.image.registry="quay.io/redhat-user-workloads/trusted-content-tenant"' /trustify-helm-charts/charts/trustify/values.yaml && \
+    # Chart.yaml \
+    HELM_VERSION="2.0.0" yq e -P -i '.version = strenv(HELM_VERSION)' /trustify-helm-charts/charts/trustify/Chart.yaml && \
+    TRUSTIFY_IMAGE_TAG="df3f36f64330db7e73cbcd22c7d89fdda9e0da9c" yq e -P -i '.appVersion = strenv(TRUSTIFY_IMAGE_TAG)' /trustify-helm-charts/charts/trustify/Chart.yaml
+
+RUN curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 && \
+    chmod +x get_helm.sh && ./get_helm.sh && \
+    helm package /trustify-helm-charts/charts/trustify

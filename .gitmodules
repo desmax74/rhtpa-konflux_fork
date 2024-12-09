@@ -4,3 +4,6 @@
 [submodule "components/trustify-ui"]
 	path = components/trustify-ui
 	url = https://github.com/trustification/trustify-ui.git
+[submodule "components/trustify-helm-charts"]
+	path = components/trustify-helm-charts
+	url = https://github.com/trustification/trustify-helm-charts.git
