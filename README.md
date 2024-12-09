@@ -20,7 +20,7 @@ git submodule update
 - Identify the container image that corresponds to the Helm Chart Component in Konflux. For instance:
 
 ```shell
-export IMAGE=quay.io/redhat-user-workloads/trusted-content-tenant/rhtpa-helm-konflux@sha256:8d00a415359dce5bbe6cbea23f62487397bceda271d2f3c42ed6ea477935b5ff
+export IMAGE=quay.io/redhat-user-workloads/trusted-content-tenant/rhtpa-helm-konflux@sha256:2cbbd3c5eae3c6ce501aaf21f001eaec5410b0bad6e9ef2bc2e5ddcae5ac75af
 ```
 
 - Set the container image to a variable
